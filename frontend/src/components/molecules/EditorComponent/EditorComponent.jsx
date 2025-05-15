@@ -32,10 +32,10 @@ export const EditorComponent = () => {
         {
             editorState.theme  && 
             <Editor
-            height={'80vh'}
+            height={'70vh'}
             width={'100%'}
             defaultLanguage="javascript"
-            defaultValue="console.log('Hello world!'); // This is not mandatory you can remove this line"
+            defaultValue="console.log('Hello world!'); // This is not mandatory you can remove this line and continue coding"
             theme=""
             options={{
                 fontSize: 18,

@@ -26,7 +26,7 @@ export const EditorButton = ({ isActive, onClose }) => {
             file.js
             <span 
                 onClick={closeButton}
-                style={{ marginLeft: '10px', cursor: 'pointer' }}
+                style={{ marginLeft: '10px', cursor: 'pointer', backgroundColor:' #4b4242 ', borderRadius: '20%', width: '20px', height: '20px', padding: '3px' }}
             >
                 X
             </span>

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Editor from '@monaco-editor/react';
+import { useEditorSocketStore } from '../../../store/editorSocketStore';
 
 
 export const EditorComponent = () => {
     const [editorState, setEditorState] = useState({
         theme: null,
     });
+
+    const { editorSocket } = useEditorSocketStore();
 
     async function downloadTheme(){
         const response = await fetch('/Dracula.json')
@@ -19,6 +22,10 @@ export const EditorComponent = () => {
                 monaco.editor.setTheme('dracula');
     
     }
+
+    editorSocket?.on("readFileSuccess", (data) => {
+        console.log("read File Success", data);
+    })
 
     useEffect(() => {
         // fetch('/Dracula.json')
@@ -44,5 +51,5 @@ export const EditorComponent = () => {
             onMount={handleEditorTheme}
         />}
     </>
-  )
+  ) 
 }

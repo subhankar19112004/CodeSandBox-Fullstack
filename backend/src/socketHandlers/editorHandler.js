@@ -38,10 +38,12 @@ export const handleEditorSocketEvents = (socket) => {
 
   socket.on("readFile", async ({ pathToFileOrFolder }) => {
     try {
-      const response = await fs.readFile(pathToFileOrFolder, "utf-8");/**readfile -> deletes the file */
+      const response = await fs.readFile(pathToFileOrFolder,);/**readfile -> deletes the file */
+      console.log(response.toString());
       socket.emit("readFileSuccess", { 
         data: response.toString() 
     });
+    
     } catch (error) {
       console.log("Error reading the file", error);
       socket.emit("error", { 

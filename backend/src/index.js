@@ -28,7 +28,7 @@ app.use("/api", apiRouter);
 
 app.get("/ping", (req, res) => {
   return res.status(200).json({ message: "pong" });
-});
+}); 
 
 const editorNameSpace = io.of("/editor");
 

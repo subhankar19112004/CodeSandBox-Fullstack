@@ -46,7 +46,6 @@ export const TreeNode = ({ fileFolderData }) => {
               outline: "none",
               color: "white",
               backgroundColor: "transparent",
-              paddingTop: "10px",
               fontSize: "18px",
             }}
           >

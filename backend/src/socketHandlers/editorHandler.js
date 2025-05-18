@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import path from "path";
 export const handleEditorSocketEvents = (socket) => {
   socket.on("writeFile", async ({ data, pathToFileOrFolder }) => {
     try {
@@ -38,10 +39,11 @@ export const handleEditorSocketEvents = (socket) => {
 
   socket.on("readFile", async ({ pathToFileOrFolder }) => {
     try {
-      const response = await fs.readFile(pathToFileOrFolder,);/**readfile -> deletes the file */
+      const response = await fs.readFile(pathToFileOrFolder,);/**readfile -> reads the file */
       console.log(response.toString());
       socket.emit("readFileSuccess", { 
-        data: response.toString() 
+        value: response.toString(),
+        path: pathToFileOrFolder
     });
     
     } catch (error) {
@@ -66,7 +68,7 @@ export const handleEditorSocketEvents = (socket) => {
     }
   });
 
-  socket.on("craeteFolder", async ({ pathToFileOrFolder }) => {
+  socket.on("createFolder", async ({ pathToFileOrFolder }) => {
     try {
         const response = await fs.mkdir(pathToFileOrFolder);/**mkdir -> it creates a folder in fs module */
         socket.emit("createFolderSuccess", {

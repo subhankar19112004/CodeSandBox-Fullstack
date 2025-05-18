@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Editor from '@monaco-editor/react';
 import { useEditorSocketStore } from '../../../store/editorSocketStore';
+import { useActiveFileTabStore } from '../../../store/activeFileTabStore';
 
 
 export const EditorComponent = () => {
@@ -9,6 +10,7 @@ export const EditorComponent = () => {
     });
 
     const { editorSocket } = useEditorSocketStore();
+    const { activeFileTab, setActiveFileTab } = useActiveFileTabStore();
 
     async function downloadTheme(){
         const response = await fetch('/Dracula.json')
@@ -25,8 +27,9 @@ export const EditorComponent = () => {
 
     editorSocket?.on("readFileSuccess", (data) => {
         console.log("read File Success", data);
+        setActiveFileTab(data.path, data.value)
     })
-
+  
     useEffect(() => {
         // fetch('/Dracula.json')
         // .then(response => response.json())
@@ -41,13 +44,14 @@ export const EditorComponent = () => {
             <Editor
             height={'80vh'}
             width={'100%'}
-            defaultLanguage="javascript"
+            defaultLanguage="javascript" 
             defaultValue="console.log('Hello world!'); // This is not mandatory you can remove this line and continue coding"
             theme=""
             options={{
                 fontSize: 18,
                 fontFamily: 'monospace',
             }}
+            value={ activeFileTab?.value ? activeFileTab.value : "console.log('Hello world!'); // This is not mandatory you can remove this line and continue coding" }
             onMount={handleEditorTheme}
         />}
     </>

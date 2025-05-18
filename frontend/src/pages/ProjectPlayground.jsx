@@ -15,11 +15,17 @@ const ProjectPlayground = () => {
   const { setEditorSocket } = useEditorSocketStore();
 
   useEffect(() => {
-    setProjectId(projectIdFromUrl);
-    const editorSocketConn = io(`${import.meta.env.VITE_BACKEND_URL}/editor`, {
-      query: { projectId: projectIdFromUrl },
-    });
-    setEditorSocket(editorSocketConn);
+    if (projectIdFromUrl) {
+      setProjectId(projectIdFromUrl);
+
+      const editorSocketConn = io(
+        `${import.meta.env.VITE_BACKEND_URL}/editor`,
+        {
+          query: { projectId: projectIdFromUrl },
+        }
+      );
+      setEditorSocket(editorSocketConn);
+    }
   }, [setProjectId, projectIdFromUrl, setEditorSocket]);
 
   return (

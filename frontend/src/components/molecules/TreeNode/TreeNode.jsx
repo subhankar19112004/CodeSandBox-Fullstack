@@ -28,6 +28,11 @@ export const TreeNode = ({ fileFolderData }) => {
     
   }
 
+  function handleContextMenuForFiles(e, path){
+    e.preventDefault();
+    console.log("clicked on ",path);
+  }
+
   return (
     fileFolderData && (
       <div
@@ -69,6 +74,7 @@ export const TreeNode = ({ fileFolderData }) => {
                 fontSize: "15px",
                 marginLeft: "5px",
               }}
+              onContextMenu={(e) => handleContextMenuForFiles(e, fileFolderData.path)}
               onDoubleClick={ () => handleDoubleClick(fileFolderData) }
             >
               {fileFolderData.name}

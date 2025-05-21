@@ -78,7 +78,10 @@ export const TreeNode = ({ fileFolderData }) => {
               outline: "none",
               color: "white",
               backgroundColor: "transparent",
-              fontSize: "18px",
+              fontSize: "18px", 
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              marginTop: "8px",
             }}
             onContextMenu={(e) => handleContextMenuForFolder(e, fileFolderData.path)}
           >
@@ -92,15 +95,16 @@ export const TreeNode = ({ fileFolderData }) => {
         ) : (
           /** if the current node is not a folder, render it as a file */
 
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "start" }}>
             <FileIcon extension={computeExtersion(fileFolderData)} />
             <p
               style={{
-                paddingTop: "5px",
+                padding: "15px",
                 cursor: "pointer",
                 color: "white",
-                fontSize: "15px",
-                marginLeft: "5px",
+                fontSize: "14px",
+                marginLeft: "15px",
+                marginTop: "8px",
               }}
               onContextMenu={(e) => handleContextMenuForFiles(e, fileFolderData.path)}
               onDoubleClick={ () => handleDoubleClick(fileFolderData) }

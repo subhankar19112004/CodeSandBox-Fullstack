@@ -17,7 +17,7 @@ export const FileContextMenu = ({
             "deleteFile", 
             {
                 pathToFileOrFolder : path
-            });
+            }); 
     }
 
 

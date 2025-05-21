@@ -2,10 +2,25 @@ import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { FileIcon } from "../../atoms/FileIcon/Fileicon";
 import { useEditorSocketStore } from "../../../store/editorSocketStore";
+import { useFileContextMenuStore } from "../../../store/fileContextMenuStore.js";
+import { useFolderContextMenuStore } from "../../../store/folderContextMenuStore.js";
 
 export const TreeNode = ({ fileFolderData }) => {
   const [visibility, setVisibility] = useState({});
   const { editorSocket } = useEditorSocketStore();
+  const {
+    setFile,
+    setIsOpen: setFileContextMenuIsOpen,
+    setX: setFileContextMenuX,
+    setY: setFileContextMenuY,
+  } = useFileContextMenuStore(); 
+
+  const {
+    setFolder,
+    setIsOpen: setFolderContextMenuIsOpen,
+    setX: setFolderContextMenuX,
+    setY: setFolderContextMenuY,
+  } = useFolderContextMenuStore(); 
 
   function toggleVisibility(name) {
     setVisibility({
@@ -31,6 +46,18 @@ export const TreeNode = ({ fileFolderData }) => {
   function handleContextMenuForFiles(e, path){
     e.preventDefault();
     console.log("clicked on ",path);
+    setFile(path);
+    setFileContextMenuIsOpen(true);
+    setFileContextMenuX(e.clientX);
+    setFileContextMenuY(e.clientY);
+  }
+  function handleContextMenuForFolder(e, path){
+    e.preventDefault();
+    console.log("clicked on ",path);
+    setFolder(path);
+    setFolderContextMenuIsOpen(true);
+    setFolderContextMenuX(e.clientX);
+    setFolderContextMenuY(e.clientY);
   }
 
   return (
@@ -53,6 +80,7 @@ export const TreeNode = ({ fileFolderData }) => {
               backgroundColor: "transparent",
               fontSize: "18px",
             }}
+            onContextMenu={(e) => handleContextMenuForFolder(e, fileFolderData.path)}
           >
             {visibility[fileFolderData.name] ? (
               <IoIosArrowDown style={{ height: "10px", width: "10px" }} />

@@ -1,18 +1,19 @@
 import { useEditorSocketStore } from "../../../store/editorSocketStore";
-import { useFileContextMenuStore } from "../../../store/fileContextMenuStore.js";
-import './FileContextMenu.css'
 
-export const FileContextMenu = ({
+import { useFolderContextMenuStore } from "../../../store/folderContextMenuStore";
+import './FolderContextMenu.css'
+
+export const FolderContextMenu = ({
     x,
     y,
     path
 }) => {
-    const { setIsOpen } = useFileContextMenuStore();
+    const { setIsOpen } = useFolderContextMenuStore();
     const {editorSocket} = useEditorSocketStore(); 
 
-    function handleFileDelete(e){
+    function handleFolderDelete(e){
         e.preventDefault();
-        console.log("Deleted file : ",path);
+        console.log("Deleted folder : ",path);
         editorSocket.emit(
             "deleteFile", 
             {
@@ -35,12 +36,18 @@ export const FileContextMenu = ({
             }
         } className="fileContextOptionsWrapper" >
             <button className="fileContextButton"
-             onClick={handleFileDelete}
+             onClick={handleFolderDelete}
              >
-                Delete File
+                Delete Folder
             </button>
             <button className="fileContextButton " >
-                Rename File
+                Create Folder
+            </button>
+            <button className="fileContextButton " >
+                Rename Folder
+            </button>
+            <button className="fileContextButton " >
+                Create File
             </button>
         </div>
     )

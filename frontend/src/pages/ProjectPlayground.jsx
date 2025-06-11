@@ -6,6 +6,7 @@ import { TreeStructure } from "../components/organisms/TreeStructure/TreeStructu
 import { useTreeStructureStore } from "../store/treeStructureStore";
 import { useEditorSocketStore } from "../store/editorSocketStore";
 import { io } from "socket.io-client";
+import {BrowserTerminal} from "../components/molecules/Terminal/BrowserTerminal";
 
 const ProjectPlayground = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -43,7 +44,7 @@ const ProjectPlayground = () => {
               overflow: "auto",
             }}
           >
-            <TreeStructure />
+            <TreeStructure/> 
           </div>
         )}
         <EditorComponent />
@@ -53,6 +54,9 @@ const ProjectPlayground = () => {
       {isOpen && (
         <EditorButton isActive={true} onClose={() => setIsOpen(false)} />
       )}
+      <div>
+        <BrowserTerminal/>
+      </div>
     </>
   );
 };

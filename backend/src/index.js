@@ -32,6 +32,7 @@ app.get("/ping", (req, res) => {
 
 const editorNameSpace = io.of("/editor");
 
+
 editorNameSpace.on("connection", (socket) => {
   console.log("Editor connected");
 
@@ -60,6 +61,21 @@ editorNameSpace.on("connection", (socket) => {
   //     await watcher.close();
   //     console.log("Editor disconnected");
   // })
+});
+
+const terminalNameSpace = io.of("/terminal");
+
+terminalNameSpace.on("connection", (socket) => {
+  console.log("Terminal connected");
+
+  socket.on("shell-input", (data) => {
+    console.log("Terminal input", data);
+    terminalNameSpace.emit("shell-input", data);
+  })
+
+  socket.on("disconnect", () => {
+    console.log("Terminal disconnected");
+  });
 });
 
 server.listen(PORT, () => {

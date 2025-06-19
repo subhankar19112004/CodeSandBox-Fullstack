@@ -70,7 +70,7 @@ terminalNameSpace.on("connection", (socket) => {
 
   socket.on("shell-input", (data) => {
     console.log("Terminal input", data);
-    terminalNameSpace.emit("shell-input", data);
+    terminalNameSpace.emit("shell-input", data); 
   })
 
   socket.on("disconnect", () => {

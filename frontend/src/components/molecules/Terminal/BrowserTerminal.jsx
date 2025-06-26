@@ -31,7 +31,7 @@ export const BrowserTerminal = () => {
         white: "#f8f8f3"
       },
       fontSize: 16,
-      fontFamily: "Ubuntu Mono",
+      fontFamily: "Fira Code, monospace",
       convertEol: true, // convert \r\n to \n
     });
     term.open(terminalRef.current);

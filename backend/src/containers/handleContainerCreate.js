@@ -56,11 +56,18 @@ export const handleContainerCreate = async (projectId, socket) => {
                     return;
                 }
                 console.log("Stream hijacked successfully");
-                processStream(stream, socket);
-                socket.on("shell-input", (data) => {
-                    console.log("Shell input received: ", data);
-                    stream.write(data + "\n");
-                })
+                // processStream(stream, socket);
+                // socket.on("shell-input", (data) => {
+                //     console.log("Shell input received: ", data);
+                //     stream.write("pwd\n", (err) => {
+                //         if (err) {
+                //             console.log("Error while writing to the stream: ", err);
+                //             return;
+                //         } else {
+                //             console.log("Data written to the stream successfully");
+                //         }
+                //     });
+                // })
             })
         })
     } catch (error) {
@@ -69,21 +76,21 @@ export const handleContainerCreate = async (projectId, socket) => {
 
 };
 
-function processStream( stream, socket){
-    let buffer = Buffer.from('');
-    stream.on('data', (data) => {
-        buffer = Buffer.concat([buffer, data]);
-        socket.emit("shell-output", buffer.toString());
-        buffer = Buffer.from('');
-    });
+// function processStream( stream, socket){
+//     let buffer = Buffer.from('');
+//     stream.on('data', (data) => {
+//         buffer = Buffer.concat([buffer, data]);
+//         socket.emit("shell-output", buffer.toString());
+//         buffer = Buffer.from('');
+//     });
 
-    stream.on('end', () => {
-        console.log("Stream ended");
-        socket.emit("shell-output", "Stream ended");
-    });
+//     stream.on('end', () => {
+//         console.log("Stream ended");
+//         socket.emit("shell-output", "Stream ended");
+//     });
 
-    stream.on('error', (error) => {
-        console.log("Stream error: ", error);
-        socket.emit("shell-output", "Stream error: " + error);
-    });  
-}
+//     stream.on('error', (error) => {
+//         console.log("Stream error: ", error);
+//         socket.emit("shell-output", "Stream error: " + error);
+//     });  
+// }

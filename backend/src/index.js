@@ -5,6 +5,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 import { createServer } from "node:http";
 import chokidar from "chokidar";
+import { WebSocketServer } from 'ws';
 
 import { handleEditorSocketEvents } from "./socketHandlers/editorHandler.js";
 import { handleContainerCreate } from "./containers/handleContainerCreate.js";
@@ -64,26 +65,42 @@ editorNameSpace.on("connection", (socket) => {
   // })
 });
 
-const terminalNameSpace = io.of("/terminal");
+// const terminalNameSpace = io.of("/terminal");
 
-terminalNameSpace.on("connection", (socket) => {
-  console.log("Terminal connected");
+// terminalNameSpace.on("connection", (socket) => {
+//   console.log("Terminal connected");
 
-  let projectId = socket.handshake.query["projectId"];
+//   let projectId = socket.handshake.query["projectId"];
 
-  // socket.on("shell-input", (data) => {
-  //   console.log("Terminal input", data);
-  //   terminalNameSpace.emit("shell-input", data); 
-  // })
+//   // socket.on("shell-input", (data) => {
+//   //   console.log("Terminal input", data);
+//   //   terminalNameSpace.emit("shell-input", data); 
+//   // })
 
-  socket.on("disconnect", () => {
-    console.log("Terminal disconnected");
-  });
-  handleContainerCreate(projectId, socket);
-});
+//   socket.on("disconnect", () => {
+//     console.log("Terminal disconnected");
+//   });
+//   handleContainerCreate(projectId, socket);
+// });
 
 
 
 server.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
+});
+
+const webSocketForTerminal = new WebSocketServer({
+  noServer: true, // You should set this to true if you're not using a custom server
+});
+
+server.on("upgrade", (req, socket, head) => {
+  /**
+   * req: Incoming http request
+   * socket: TCP socket
+   * head: Buffer containing the first packet of the upgraded stream
+   */
+  //This callback will be called when a client tries to connect to the server through websocket
+  const isTerminal = req.url.includes("/terminal");
+
+  
 });

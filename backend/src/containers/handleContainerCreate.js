@@ -17,7 +17,7 @@ export const handleContainerCreate = async (projectId, socket) => {
                 Binds: [ // Mounting the project directory into the container
                     `${process.cwd()}/../projects/${projectId}:/home/sandbox/app`
                 ],
-                PortBindings: {     
+                PortBindings: {    // Exposing the port
                     "5173/tcp": [
                         {
                             HostPort: "0"

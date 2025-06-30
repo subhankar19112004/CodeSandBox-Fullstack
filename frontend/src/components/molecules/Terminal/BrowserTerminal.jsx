@@ -15,7 +15,7 @@ export const BrowserTerminal = () => {
 
 
   useEffect(() => {
-    const term = new Terminal({
+    const term = new Terminal({ 
       cursorBlink:true,
       theme: {
         background: '#282a37',
@@ -23,7 +23,7 @@ export const BrowserTerminal = () => {
         cursorAccent: "#282a37",
         red: "#ff5544",
         green: "#50fa7b",
-        yellow: "#f1fa8c",
+        yellow: "#f1fa8c", 
         blue: "#8be9fd",
         magenta: "#bd93f9",
         cyan: "#8be9fd",

@@ -17,7 +17,7 @@ export const handleContainerCreate = async (projectId, socket) => {
                 Binds: [ // Mounting the project directory into the container
                     `${process.cwd()}/../projects/${projectId}:/home/sandbox/app`
                 ],
-                PortBindings: {
+                PortBindings: {     
                     "5173/tcp": [
                         {
                             HostPort: "0"
@@ -53,7 +53,7 @@ export const handleContainerCreate = async (projectId, socket) => {
                 if(err) {
                     console.log("Error while hijacking the stream: ", err);
 
-                    return;
+                    return; 
                 }
                 console.log("Stream hijacked successfully");
                 // processStream(stream, socket);
